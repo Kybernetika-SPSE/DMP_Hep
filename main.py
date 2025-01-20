@@ -1,11 +1,14 @@
-import time
-from machine import Pin
+from time import sleep_ms
+from machine import Pin, PWM
 
-x = 0
-def pulse_count(x):
-    x = x + 1
+count = 0
+def pulse_count():
+    global count
+    count = count + 1
+
 
 pulse_in = Pin(2, Pin.IN)
+speaker = PWM(Pin(6, Pin.OUT))
 pulse_in.irq(trigger=Pin.IRQ_RISING, handler=pulse_count(x))
 
 while True:
