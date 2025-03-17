@@ -1,27 +1,25 @@
 from time import sleep_ms
 from machine import Pin, PWM, Timer
 
-pulse_in = Pin(2, Pin.IN, Pin.PULL_DOWN)
-speaker = Pin(6, Pin.OUT)
-output = PWM(Pin(8, Pin.OUT))
+pulse_in = Pin(5, Pin.IN, Pin.PULL_DOWN)
+speaker = Pin(22, Pin.OUT)
+output = PWM(Pin(18, Pin.OUT))
 output.freq(1000000)
 count = 0
 duty = 0
-pulse_length = 2
+pulse_length = 1
 timer = Timer()
 
 def pulse_reset(useless_1):
     global count
+    global duty
+    duty = int((count/40)*55538)
     count = 0
 
 def pulse_count(useless_2):
     pulse_in.irq(handler = None)
     global count
     count = count + 1
-    #bacha jmenovatel je dan vzorokovaci frekvenci
-    global duty
-    duty = (count/1700)*55538
-    #print("count="+str(count))
 
     speaker.value(1)
     sleep_ms(pulse_length)
