@@ -13,7 +13,8 @@ timer = Timer()
 def pulse_reset(useless_1):
     global count
     global duty
-    duty = int((count/40)*55538)
+    duty = int((count/370)*55538)
+    print(str(count))
     count = 0
 
 def pulse_count(useless_2):
